@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Exercise JS 9</title>
+	<script>
+		function createArray() {
+			var elements = prompt("Enter comma separated array values : ");
+			elements = elements.split(",");
+			document.write("Array elements are : ");
+			for (i = 0; i < elements.length; i++) {
+				document.write(elements[i] + " ")
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="button" value="Click me to check output" onclick="return createArray();">
+</body>
+</html>

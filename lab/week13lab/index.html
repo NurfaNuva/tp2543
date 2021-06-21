@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Week 11 Lab Deliverables</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<style>
+	body{
+		background: linear-gradient(#2B32B2, #26D0CE);
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-size: cover;
+		font-family: Montserrat;
+		color: white;
+	}
+	h1{
+		text-shadow: 2px 2px 5px #dee2e6; 
+		font-size: 50px;
+		font-weight: bold;
+	}
+	button {
+		margin: 20px;
+	}
+	div{
+		background: linear-gradient(#5433FF, #20BDFF);
+		padding: 10px 25px;
+		border-radius: 30px;
+	}
+	.frame {
+		width: 90%;
+		margin: 40px auto;
+		text-align: center;
+	}
+	button {
+		margin: 20px;
+	}
+	.custom-btn {
+		width: 250px;
+		height: 100px;
+		color: #fff;
+		border-radius: 5px;
+		padding: 10px 25px;
+		font-family: 'Lato', sans-serif;
+		font-weight: 500;
+		background: transparent;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		position: relative;
+		display: inline-block;
+		box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+		7px 7px 20px 0px rgba(0,0,0,.1),
+		4px 4px 5px 0px rgba(0,0,0,.1);
+		outline: none;
+	}
+	/* 15 */
+	.btn-15 {
+		background: #00b4d8;
+		border: none;
+		z-index: 1;
+	}
+	.btn-15:after {
+		position: absolute;
+		content: "";
+		width: 0;
+		height: 100%;
+		top: 0;
+		right: 0;
+		z-index: -1;
+		background-color: #8900f2;
+		border-radius: 5px;
+		box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+		7px 7px 20px 0px rgba(0,0,0,.1),
+		4px 4px 5px 0px rgba(0,0,0,.1);
+		transition: all 0.3s ease;
+	}
+	.btn-15:hover {
+		color: #fff;
+	}
+	.btn-15:hover:after {
+		left: 0;
+		width: 100%;
+	}
+	.btn-15:active {
+		top: 2px;
+	}
+</style>
+</head>
+<body>
+	<h1 align="center">Week 13 Lab</h1>
+
+	<div class="frame">
+		<h2 style="font-size: 30px">JQuery</h2>
+
+		<a href="task1.html" style="text-decoration: none;"><button class="custom-btn btn-15">JQuery Task 1</button></a>
+		<a href="task2.html" style="text-decoration: none;"><button class="custom-btn btn-15">JQuery Task 2</button></a>
+		<a href="task3.html" style="text-decoration: none;"><button class="custom-btn btn-15">JQuery Task 3</button></a>
+		<a href="task4.html" style="text-decoration: none;"><button class="custom-btn btn-15">JQuery Task 4</button></a>
+		<a href="task5.html" style="text-decoration: none;"><button class="custom-btn btn-15">JQuery Task 5</button></a>
+		<a href="task6.html" style="text-decoration: none;"><button class="custom-btn btn-15">JQuery Task 6</button></a>
+	</div>
+</body>
+</html>

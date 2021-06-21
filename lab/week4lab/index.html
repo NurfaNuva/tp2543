@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Week 4 Lab Deliverables</title>
+	<style>
+		body{
+			background-image: linear-gradient(#00c6ff, #0072ff);
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-size: cover;
+		}
+		h1{
+			text-shadow: 2px 2px 5px #d9d9d9; 
+			font-size: 50px;
+			color: white;
+		}
+		.frame {
+			width: 90%;
+			margin: 40px auto;
+			text-align: center;
+		}
+		button {
+			margin: 20px;
+		}
+		.custom-btn {
+			font-size: 30px;
+			width: 350px;
+			height: 150px;
+			color: #fff;
+			border-radius: 5px;
+			padding: 10px 25px;
+			font-family: 'Lato', sans-serif;
+			font-weight: 500;
+			background: transparent;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			position: relative;
+			display: inline-block;
+			box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+			7px 7px 20px 0px rgba(0,0,0,.1),
+			4px 4px 5px 0px rgba(0,0,0,.1);
+			outline: none;
+		}
+		/* button effect */
+		.btn-5 {
+			width: 350px;
+			height: 150px;
+			line-height: 42px;
+			padding: 0;
+			border: none;
+			background: rgb(255,27,0);
+			background: linear-gradient(to bottom left, #12c2e9, #c471ed);
+		}
+		.btn-5:hover {
+			color: #ffffff;
+			background: transparent;
+			box-shadow:none;
+		}
+		.btn-5:before,
+		.btn-5:after{
+			content:'';
+			position:absolute;
+			top:0;
+			right:0;
+			height:2px;
+			width:0;
+			background: #ffffff;
+			box-shadow:
+			-1px -1px 5px 0px #fff,
+			7px 7px 20px 0px #0003,
+			4px 4px 5px 0px #0002;
+			transition:400ms ease all;
+		}
+		.btn-5:after{
+			right:inherit;
+			top:inherit;
+			left:0;
+			bottom:0;
+		}
+		.btn-5:hover:before,
+		.btn-5:hover:after{
+			width:100%;
+			transition:800ms ease all;
+		}
+	</style>
+</head>
+<body>
+	<h1 align="center">Week 4 Lab</h1>
+	<div class="frame">
+		<a href="bio_form.php" style="text-decoration: none;"><button class="custom-btn btn-5">Bio Form</button></a>
+		<a href="edit_bio.php" style="text-decoration: none;"><button class="custom-btn btn-5">Edit Bio</button></a>
+		<a href="lecturers_list.php" style="text-decoration: none;"><button class="custom-btn btn-5">Lecturers List</button></a>
+	</div>
+</body>
+</html>
