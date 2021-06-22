@@ -40,7 +40,7 @@
 
     <label for="id_mycard">MyCard Number:</label>
     <div>
-      <input type="text" name="mycard" id="id_mycard" style="width: 80%" required pattern="\d{6}\d{2}\d{4}" placeholder="001015010514">
+      <input type="text" name="mycard" id="id_mycard" style="width: 80%" required pattern="\d{6}-\d{2}-\d{4}" placeholder="001015-01-0514">
       <button type="button" name="search" id="is_search" style="width:19%" onclick="return check_mycard()">Validate MyCard</button>
     </div>
 
@@ -106,8 +106,8 @@
         var dobYear = mycard.value.slice(0, 2);
         var dobMonth = mycard.value.slice(2, 4);
         var dobDate = mycard.value.slice(4, 6);
-        var birthStateNumber = mycard.value.slice(6, 8);
-        var genderLastDigit = mycard.value.slice(11, 12);
+        var birthStateNumber = mycard.value.slice(7, 9);
+        var genderLastDigit = mycard.value.slice(12, 13);
 
         document.getElementById("id_dob").value = dobDate + "/" + dobMonth + "/" + dobYear;
 
