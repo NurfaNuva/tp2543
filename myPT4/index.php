@@ -96,37 +96,6 @@
   		</div>
   	</div>
 
-  	<div class="container-fluid text-center">
-  		<div class="wrapper"><h2>Top Products</h2></div><br>
-  		<div class="row">
-  			<div class="col-sm-4">
-  				<a href="products_details.php?pid=4"><img src="products/M103.png" class="my-image"></a>
-  				<h4>X-SPIRIT III AERODYNE(M)</h4>
-  			</div>
-  			<div class="col-sm-4">
-  				<a href="products_details.php?pid=12"><img src="products/M111.png" class="my-image"></a>
-  				<h4>X-SPIRIT III MARQUEZ MOTEGI3</h4>
-  			</div>
-  			<div class="col-sm-4">
-  				<a href="products_details.php?pid=14"><img src="products/M113.png" class="my-image"></a>
-  				<h4>X-SPIRIT III MM93 BLACK CONCEPT 2.0</h4>
-  			</div>
-  			<div class="col-sm-4">
-  				<a href="products_details.php?pid=18"><img src="products/M117.png" class="my-image"></a>
-  				<h4>SIGNET-X GAMMA</h4>
-  			</div>
-  			<div class="col-sm-4">
-  				<a href="products_details.php?pid=32"><img src="products/M131.png" class="my-image"></a>
-  				<h4>PISTA GP RR IRIDIUM CARBON</h4>
-  			</div>
-  			<div class="col-sm-4">
-  				<a href="products_details.php?pid=41"><img src="products/M140.png" class="my-image"></a>
-  				<h4>VX-35 KRUSH</h4>
-  			</div>
-  		</div>
-  	</div>
-  	<br>
-
   	<?php include_once 'footer.php'; ?>
 
   	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

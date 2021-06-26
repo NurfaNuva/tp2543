@@ -32,7 +32,7 @@
             <li><a href="orders.php">Orders</a></li>
           </ul>
         </li> -->
-        <li><a href="../index.html" style="color:white;">Log Out</a></li>
+        <!-- <li><a href="../index.html" style="color:white;">Log Out</a></li> -->
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

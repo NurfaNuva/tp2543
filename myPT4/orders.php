@@ -48,7 +48,7 @@ include_once 'orders_crud.php';
           <form action="orders.php" method="post" class="form-horizontal">
             <!-- Order ID -->
             <div class="form-group">
-              <label for="orderid" class="col-sm-3 control-label">ID</label>
+              <label for="orderid" class="col-sm-3">ID</label>
               <div class="col-sm-9">
                 <input name="oid" type="text" class="form-control" id="orderid" placeholder="Order ID" value="<?php echo (isset($_GET['edit']) ? $_GET['edit'] : uniqid('O', true)); ?>" readonly>
               </div>
@@ -56,7 +56,7 @@ include_once 'orders_crud.php';
 
             <!-- Order Date -->
             <div class="form-group">
-              <label for="date" class="col-sm-3 control-label">Order Date</label>
+              <label for="date" class="col-sm-3">Order Date</label>
               <div class="col-sm-9">
                 <input name="orderdate" type="text" class="form-control" id="date" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_order_date']; ?>" readonly>
               </div>
@@ -64,7 +64,7 @@ include_once 'orders_crud.php';
 
             <!-- list of staffs -->
             <div class="form-group">
-              <label for="staff" class="col-sm-3 control-label">Staff</label>
+              <label for="staff" class="col-sm-3">Staff</label>
               <div class="col-sm-9">
                 <select name="sid" class="form-control" id="staff" required>
                   <?php
@@ -95,7 +95,7 @@ include_once 'orders_crud.php';
 
      <!-- list of customers -->
      <div class="form-group">
-      <label for="customer" class="col-sm-3 control-label">Customer</label>
+      <label for="customer" class="col-sm-3">Customer</label>
       <div class="col-sm-9">
         <select name="cid" class="form-control" id="customer" required>
           <?php

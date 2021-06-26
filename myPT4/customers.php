@@ -43,26 +43,41 @@ include_once 'customers_crud.php';
   		<div class="row">
   			<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
   				<div class="page-header">
-  					<h2>Create New Customer</h2>
+  					<?php
+  					if (isset($editrow) && count($editrow) > 0) {
+  						echo "<h2>Editing #".$fID."</h2>";
+  					} else {
+  						echo "<h2>Create New Customer</h2>";
+  					}
+  					?>
   				</div>
+
   				<form action="customers.php" method="post" class="form-horizontal">
+  					<?php
+  					if (isset($_GET['edit'])) {
+  						"<input type='hidden' name='cid' value='".$editrow['fld_customer_num']."' />";
+  					}
+  					?>
+
   					<!-- Customer ID -->
   					<div class="form-group">
-  						<label for="custid" class="col-sm-3 control-label">ID</label>
+  						<label for="custid" class="col-sm-3">ID</label>
   						<div class="col-sm-9">
-  							<input name="cid" type="text" class="form-control" id="custid" placeholder="Customer ID" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_customer_num']; ?>" readonly>
+  							<input name="cid" type="text" class="form-control" id="custid" placeholder="Customer ID" value="<?php if(isset($_GET['edit'])) echo $fID; else echo $NextID; ?>" readonly>
   						</div>
   					</div>
+
   					<!-- Name -->
   					<div class="form-group">
-  						<label for="name" class="col-sm-3 control-label">Name</label>
+  						<label for="name" class="col-sm-3">Name</label>
   						<div class="col-sm-9">
   							<input name="name" type="text" class="form-control" id="name" placeholder="Name" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_customer_name']; ?>" required>
   						</div>
   					</div>
+
   					<!-- Phone Number -->
   					<div class="form-group">
-  						<label for="custphone" class="col-sm-3 control-label">Phone Number</label>
+  						<label for="custphone" class="col-sm-3">Phone Number</label>
   						<div class="col-sm-9">
   							<input name="phone" type="text" class="form-control" id="custphone" placeholder="0##-#######" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_customer_phone']; ?>" pattern="^01[0-9]{1}-([0-9]{8}|[0-9]{7})" required>
   						</div>

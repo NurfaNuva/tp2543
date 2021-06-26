@@ -61,7 +61,7 @@ include_once 'database.php';
   					echo "No image";
   				}
   				else { ?>
-  					<img src="products/<?php echo $readrow['fld_product_image'] ?>" class="img-responsive">
+  					<img src="products/<?php echo $readrow['fld_product_image'] ?>" class="img-responsive" width="100%" height="100%" alt="No Image">
   				<?php } ?>
   			</div>
   			<div class="col-xs-12 col-sm-5 col-md-4">

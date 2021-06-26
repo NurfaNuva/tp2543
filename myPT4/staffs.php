@@ -44,28 +44,69 @@ include_once 'staffs_crud.php';
   		<div class="row">
   			<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
   				<div class="page-header">
-  					<h2>Create New Staff</h2>
+  					<?php
+  					if (isset($editrow) && count($editrow) > 0) {
+  						echo "<h2>Editing #".$fID."</h2>";
+  					} else {
+  						echo "<h2>Create New Staff</h2>";
+  					}
+  					?>
   				</div>
+
   				<form action="staffs.php" method="post" class="form-horizontal">
+  					<?php
+  					if (isset($_GET['edit'])) {
+  						"<input type='hidden' name='sid' value='".$editrow['fld_staff_num']."' />";
+  					}
+  					?>
+
   					<!-- Staff ID -->
   					<div class="form-group">
-  						<label for="staffid" class="col-sm-3 control-label">ID</label>
+  						<label for="staffid" class="col-sm-3">ID</label>
   						<div class="col-sm-9">
-  							<input name="sid" type="text" class="form-control" id="staffid" placeholder="Staff ID" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_num']; ?>" readonly>
+  							<input name="sid" type="text" class="form-control" id="staffid" placeholder="Staff ID" value="<?php if(isset($_GET['edit'])) echo $fID; else echo $NextID; ?>" readonly>
   						</div>
   					</div>
+
   					<!-- Name -->
   					<div class="form-group">
-  						<label for="name" class="col-sm-3 control-label">Name</label>
+  						<label for="name" class="col-sm-3">Name</label>
   						<div class="col-sm-9">
   							<input name="name" type="text" class="form-control" id="name" placeholder="Name" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_name']; ?>" required>
   						</div>
   					</div>
+
   					<!-- Phone Number -->
   					<div class="form-group">
-  						<label for="staffphone" class="col-sm-3 control-label">Phone Number</label>
+  						<label for="staffphone" class="col-sm-3">Phone Number</label>
   						<div class="col-sm-9">
   							<input name="phone" type="text" class="form-control" id="staffphone" placeholder="0##-#######" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_phone']; ?>" pattern="^01[0-9]{1}-([0-9]{8}|[0-9]{7})" required>
+  						</div>
+  					</div>
+
+  					<div class="form-group">
+  						<label for="inputEmail" class="col-sm-3">Email</label>
+  						<div class="col-sm-9">
+  							<input name="email" type="text" class="form-control" id="inputEmail" placeholder="Email"
+  							value="<?php if (isset($_GET['edit'])) echo $editrow['fld_staff_email']; ?>" required>
+  						</div>
+  					</div>
+
+  					<div class="form-group">
+  						<label for="inputEmail" class="col-sm-3">Password</label>
+  						<div class="col-sm-9">
+  							<input name="password" type="text" class="form-control" id="inputEmail" placeholder="Password"
+  							value="<?php if (isset($_GET['edit'])) echo $editrow['fld_staff_password']; ?>" required>
+  						</div>
+  					</div>
+
+  					<div class="form-group">
+  						<label for="role" class="col-sm-3">Role</label>
+  						<div class="col-sm-9">
+  							<select class="form-control" name="role">
+  								<option value="normal" <?php echo (isset($_GET['edit']) && $editrow['fld_staff_role'] == 'normal' ? 'selected' : ''); ?>>Normal Staff</option>
+  								<option value="admin" <?php echo (isset($_GET['edit']) && $editrow['fld_staff_role'] == 'admin' ? 'selected' : ''); ?>>Administrator</option>
+  							</select>
   						</div>
   					</div>
 
@@ -96,6 +137,9 @@ include_once 'staffs_crud.php';
   						<th>Staff ID</th>
   						<th>Name</th>
   						<th>Phone Number</th>
+  						<th>Email</th>
+  						<th>Password</th>
+  						<th>Role</th>
   						<th></th>
   					</tr>
 
@@ -124,6 +168,9 @@ include_once 'staffs_crud.php';
   							<td><?php echo $readrow['fld_staff_num']; ?></td>
   							<td><?php echo $readrow['fld_staff_name']; ?></td>
   							<td><?php echo $readrow['fld_staff_phone']; ?></td>
+  							<td><?php echo $readrow['fld_staff_email']; ?></td>
+  							<td><?php echo $readrow['fld_staff_password']; ?></td>
+  							<td><?php echo $readrow['fld_staff_role']; ?></td>
   							<td>
   								<a href="staffs.php?edit=<?php echo $readrow['fld_staff_num']; ?>" class="btn btn-success btn-xs" role="button"> Edit </a>
   								<a href="staffs.php?delete=<?php echo $readrow['fld_staff_num']; ?>" onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs" role="button">Delete</a>
