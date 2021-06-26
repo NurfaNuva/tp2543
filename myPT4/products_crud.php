@@ -104,41 +104,44 @@ function uploadPhoto($file)
 
     try {
 
-      $stmt = $conn->prepare("UPDATE tbl_products_a173823_pt2 SET 
-        fld_product_name = :name, fld_product_price = :price, fld_product_brand = :brand,
-        fld_product_size = :size, fld_product_color = :color, fld_product_warranty = :warranty
-        WHERE fld_product_num = :oldpid LIMIT 1");
-
-    // $stmt->bindParam(':pid', $pid, PDO::PARAM_STR);
-      $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-      $stmt->bindParam(':price', $price, PDO::PARAM_INT);
-      $stmt->bindParam(':brand', $brand, PDO::PARAM_STR);
-      $stmt->bindParam(':size', $size, PDO::PARAM_STR);
-      $stmt->bindParam(':color', $color, PDO::PARAM_STR);
-      $stmt->bindParam(':warranty', $warranty, PDO::PARAM_STR);
-      $stmt->bindParam(':oldpid', $oldpid);
-
-    // $pid = $_POST['pid'];
-      $name = strtoupper($_POST['name']);
-      $price = $_POST['price'];
-      $brand =  $_POST['brand'];
-      $size = $_POST['size'];
-      $color = $_POST['color'];
-      $warranty = $_POST['warranty'];
-      $oldpid = $_POST['oldpid'];
-
-      $stmt->execute();
-
       // Image Upload
       $flag = uploadPhoto($_FILES['fileToUpload']);
-      if (isset($flag['status'])) {
-        $stmt = $conn->prepare("UPDATE tbl_products_a173823_pt2 SET fld_product_image = :image WHERE fld_product_num = :oldpid LIMIT 1");
+      if (isset($flag['status']) || $flag==4) {
 
-        $stmt->bindParam(':image', $flag['name']);
+         $sql = "UPDATE tbl_products_a173823_pt2 SET 
+         fld_product_name = :name, fld_product_price = :price, fld_product_brand = :brand,
+         fld_product_size = :size, fld_product_color = :color, fld_product_warranty = :warranty";
+
+         if (isset($flag['status'])) {
+          $sql .= ", fld_product_image = :image";
+        }
+
+        $sql .= " WHERE fld_product_num = :oldpid LIMIT 1";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->bindParam(':price', $price, PDO::PARAM_INT);
+        $stmt->bindParam(':brand', $brand, PDO::PARAM_STR);
+        $stmt->bindParam(':size', $size, PDO::PARAM_STR);
+        $stmt->bindParam(':color', $color, PDO::PARAM_STR);
+        $stmt->bindParam(':warranty', $warranty, PDO::PARAM_STR);
         $stmt->bindParam(':oldpid', $oldpid);
+
+        $name = strtoupper($_POST['name']);
+        $price = $_POST['price'];
+        $brand =  $_POST['brand'];
+        $size = $_POST['size'];
+        $color = $_POST['color'];
+        $warranty = $_POST['warranty'];
+        $oldpid = $_POST['oldpid'];
+
+        if (isset($flag['status'])) {
+          $stmt->bindParam(':image', $flag['name']);
+        }
+
         $stmt->execute();
 
-      } elseif($flag != 4) {
+      }else{
         if ($flag == 0)
           $_SESSION['error'] = "Please make sure the file uploaded is an image.";
         elseif ($flag == 1)
@@ -150,17 +153,21 @@ function uploadPhoto($file)
         else
           $_SESSION['error'] = "An unknown error has been occurred.";
       }
-
-    } catch (PDOException $e) {
-      $_SESSION['error'] = $e->getMessage();
+     
     }
 
-    // if (isset($_SESSION['error']))
-    //   header("LOCATION: {$_SERVER['REQUEST_URI']}");
-    // else
+    catch(PDOException $e)
+    {
+     $_SESSION['error']=   $e->getMessage();
+   }
+
+   if (isset($_SESSION['error']))
+    header("LOCATION: {$_SERVER['REQUEST_URI']}");
+  else
     header("Location: products.php");
-    exit();
-  }
+
+  exit();
+}
 
 //Delete
   if (isset($_GET['delete'])) {

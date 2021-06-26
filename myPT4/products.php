@@ -62,7 +62,7 @@ include_once 'products_crud.php';
             }
             ?>
           </div>
-          <form action="products.php" method="post" class="form-horizontal" enctype="multipart/form-data">
+          <form action="<?php echo($_SERVER['REQUEST_URI']); ?>" method="post" class="form-horizontal" enctype="multipart/form-data">
             <?php
             if (isset($_GET['edit']))
               echo "<input type='hidden' name='pid' value='".$editrow['fld_product_num']."' />";
