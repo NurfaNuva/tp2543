@@ -65,7 +65,7 @@ function uploadPhoto($file)
         $stmt->bindParam(':image', $flag['name']);
 
     // $pid = $_POST['pid'];
-        $name = $_POST['name'];
+        $name = strtoupper($_POST['name']);
         $price = $_POST['price'];
         $brand =  $_POST['brand'];
         $size = $_POST['size'];
@@ -77,29 +77,22 @@ function uploadPhoto($file)
 
       catch(PDOException $e)
       {
-        // $_SESSION['error'] = $e->getMessage();
-        echo "Error: " . $e->getMessage();
+        $_SESSION['error'] = $e->getMessage();
       }
 
     } else {
       if ($flag == 0)
-        // $_SESSION['error'] = "Please make sure the file uploaded is an image.";
-        echo "Error: Please make sure the file uploaded is an image.";
+        $_SESSION['error'] = "Please make sure the file uploaded is an image.";
       elseif ($flag == 1)
-        // $_SESSION['error'] = "Sorry, only file with below 10MB are allowed.";
-        echo "Error: Sorry, only file with below 10MB are allowed.";
+        $_SESSION['error'] = "Sorry, only file with below 10MB are allowed.";
       elseif ($flag == 2)
-        // $_SESSION['error'] = "Sorry, only PNG & GIF files are allowed.";
-        echo "Error: Sorry, only PNG & GIF files are allowed.";
+        $_SESSION['error'] = "Sorry, only PNG & GIF files are allowed.";
       elseif ($flag == 3)
-        // $_SESSION['error'] = "Sorry, there was an error uploading your file.";
-        echo "Error: Sorry, there was an error uploading your file.";
+        $_SESSION['error'] = "Sorry, there was an error uploading your file.";
       elseif ($flag == 4)
-        // $_SESSION['error'] = "Please upload an image.";
-        echo "Error: Please upload an image.";
+        $_SESSION['error'] = "Please upload an image.";
       else
-        // $_SESSION['error'] = "An unknown error has been occurred.";
-        echo "Error: An unknown error has been occurred.";
+        $_SESSION['error'] = "An unknown error has been occurred.";
     }
 
     // header("LOCATION: {$_SERVER['REQUEST_URI']}");
@@ -126,7 +119,7 @@ function uploadPhoto($file)
       $stmt->bindParam(':oldpid', $oldpid);
 
     // $pid = $_POST['pid'];
-      $name = $_POST['name'];
+      $name = strtoupper($_POST['name']);
       $price = $_POST['price'];
       $brand =  $_POST['brand'];
       $size = $_POST['size'];
@@ -145,35 +138,28 @@ function uploadPhoto($file)
         $stmt->bindParam(':oldpid', $oldpid);
         $stmt->execute();
 
-      } elseif($flag == 4) {
+      } elseif($flag != 4) {
         if ($flag == 0)
-        // $_SESSION['error'] = "Please make sure the file uploaded is an image.";
-          echo "Error: Please make sure the file uploaded is an image.";
+          $_SESSION['error'] = "Please make sure the file uploaded is an image.";
         elseif ($flag == 1)
-        // $_SESSION['error'] = "Sorry, only file with below 10MB are allowed.";
-          echo "Error: Sorry, only file with below 10MB are allowed.";
+          $_SESSION['error'] = "Sorry, only file with below 10MB are allowed.";
         elseif ($flag == 2)
-        // $_SESSION['error'] = "Sorry, only PNG & GIF files are allowed.";
-          echo "Error: Sorry, only PNG & GIF files are allowed.";
+          $_SESSION['error'] = "Sorry, only PNG & GIF files are allowed.";
         elseif ($flag == 3)
-        // $_SESSION['error'] = "Sorry, there was an error uploading your file.";
-          echo "Error: Sorry, there was an error uploading your file.";
+          $_SESSION['error'] = "Sorry, there was an error uploading your file.";
         else
-        // $_SESSION['error'] = "An unknown error has been occurred.";
-          echo "Error: An unknown error has been occurred.";
+          $_SESSION['error'] = "An unknown error has been occurred.";
       }
 
     } catch (PDOException $e) {
-      // $_SESSION['error'] = $e->getMessage();
-      echo "Error: " . $e->getMessage();
+      $_SESSION['error'] = $e->getMessage();
     }
 
     // if (isset($_SESSION['error']))
     //   header("LOCATION: {$_SERVER['REQUEST_URI']}");
     // else
-      header("Location: products.php");
-
-    // exit();
+    header("Location: products.php");
+    exit();
   }
 
 //Delete

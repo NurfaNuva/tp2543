@@ -32,6 +32,8 @@ include_once 'products_crud.php';
         font-family: Montserrat;
         margin-bottom: 60px; /* Margin bottom by footer height */
         padding-top: 70px;
+        background: linear-gradient(to top left, #232526, #414345);
+        color: white;
       }
       input[type="file"] {
         display: none;
@@ -45,6 +47,12 @@ include_once 'products_crud.php';
       <div class="container">
       <div class="row">
         <div class="col-md-12">
+          <?php if (isset($_SESSION['error'])) {
+            echo "<div class='alert alert-warning' role='alert'>{$_SESSION['error']}</div>";
+            unset($_SESSION['error']);
+          }
+          ?>
+          
           <div class="page-header">
             <?php
             if(isset($editrow) && count($editrow) > 0) {
@@ -61,10 +69,10 @@ include_once 'products_crud.php';
             ?>
 
             <div class="col-md-4" style="height: 100%">
-              <div class="thumbnail dark-1">
+              <div class="thumbnail dark-1" style="background-color: #242423;">
                 <img src="products/<?php echo (isset($_GET['edit']) ? $editrow['fld_product_image'] : '') ?>" onerror="this.onerror=null;this.src='products/nophoto.png';" id="productPhoto" alt="Product Image" style="width: 100%;height: 250px;">
                 <div class="caption text-center">
-                  <h3 id="productImageTitle" style="word-break: break-all;">Product Image</h3>
+                  <h3 id="productImageTitle" style="word-break: break-all; color: white;">Product Image</h3>
                   <p>
                     <label class="btn btn-primary">
                       <input type="file" accept="image/*" name="fileToUpload" id="inputImage" onchange="loadFile(event);" />
@@ -162,15 +170,14 @@ include_once 'products_crud.php';
         </div>
       </div>
     </div>
-
-    <hr>
     
       <div class="row">
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
           <div class="page-header">
             <h2>Products List</h2>
           </div>
-          <table class="table table-striped table-bordered">
+          <div class="thumbnail" style="background-color: white; color: black;">
+          <table class="table table-hover">
             <tr>
               <th>Product ID</th>
               <th>Name</th>
@@ -218,6 +225,7 @@ include_once 'products_crud.php';
             $conn = null;
             ?>
           </table>
+        </div>
         </div>
       </div>
 

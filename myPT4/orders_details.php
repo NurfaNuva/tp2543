@@ -32,6 +32,8 @@ include_once 'orders_details_crud.php';
         font-family: Montserrat;
         margin-bottom: 60px; /* Margin bottom by footer height */
         padding-top: 70px;
+        background: linear-gradient(to top left, #232526, #414345);
+        color: white;
       }
     </style>
     </head>
@@ -61,7 +63,7 @@ include_once 'orders_details_crud.php';
     	<div class="container-fluid">
     		<div class="row">
     			<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-    				<div class="panel panel-default">
+    				<div class="panel panel-default" style="color: black;">
     					<div class="panel-heading"><strong>Order Details</strong></div>
     					<div class="panel-body">
     						Below are details of the order.
@@ -95,7 +97,7 @@ include_once 'orders_details_crud.php';
     				</div>
     				<form action="orders_details.php" method="post" class="form-horizontal" name="frmorder" id="forder">
     					<div class="form-group">
-    						<label for="prd" class="col-sm-3 control-label">Product</label>
+    						<label for="prd" class="col-sm-3">Product</label>
     						<div class="col-sm-9">
     							<select name="pid" class="form-control" id="prd">
     								<option disabled="">Please select</option>
@@ -122,7 +124,7 @@ include_once 'orders_details_crud.php';
     					</div>
     					<!-- Quantity -->
     					<div class="form-group">
-    						<label for="qty" class="col-sm-3 control-label">Quantity</label>
+    						<label for="qty" class="col-sm-3">Quantity</label>
     						<div class="col-sm-9">
     							<input name="quantity" type="number" class="form-control" id="qty" min="1" placeholder="Quantity">
     						</div>
@@ -142,7 +144,8 @@ include_once 'orders_details_crud.php';
     				<div class="page-header">
     					<h2>Products in this Order</h2>
     				</div>
-    				<table class="table table-striped table-bordered">
+            <div class="thumbnail" style="background-color: white; color: black;">
+            <table class="table table-hover">
     					<tr>
     						<th>Order Detail ID</th>
     						<th>Product</th>
@@ -180,6 +183,7 @@ include_once 'orders_details_crud.php';
     					$conn = null;
     					?>
     				</table>
+          </div>
     			</div>
     		</div>
     		<div class="row">

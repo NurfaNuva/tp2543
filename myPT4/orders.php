@@ -32,6 +32,8 @@ include_once 'orders_crud.php';
         font-family: Montserrat;
         margin-bottom: 60px; /* Margin bottom by footer height */
         padding-top: 70px;
+        background: linear-gradient(to top left, #232526, #414345);
+        color: white;
       }
     </style>
   </head>
@@ -139,13 +141,14 @@ include_once 'orders_crud.php';
           </form>
         </div>
       </div>
-      <hr>
+      
       <div class="row">
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
           <div class="page-header">
             <h2>Order List</h2>
           </div>
-          <table class="table table-striped table-bordered">
+          <div class="thumbnail" style="background-color: white; color: black;">
+          <table class="table table-hover">
             <tr>
               <th>Order ID</th>
               <th>Order Date</th>
@@ -194,6 +197,7 @@ include_once 'orders_crud.php';
             $conn = null;
             ?>
           </table>
+        </div>
         </div>
       </div>
 

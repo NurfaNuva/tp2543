@@ -32,6 +32,8 @@ include_once 'database.php';
     		font-family: Montserrat;
     		margin-bottom: 60px; /* Margin bottom by footer height */
     		padding-top: 70px;
+    		background: linear-gradient(to top left, #232526, #414345);
+    		color: white;
     	}
     </style>
   </head>
@@ -56,7 +58,7 @@ include_once 'database.php';
 
   	<div class="container-fluid">
   		<div class="row">
-  			<div class="col-xs-12 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 well well-sm text-center">
+  			<div class="col-xs-12 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 well well-sm text-center" style="background-color: #242423;">
   				<?php if ($readrow['fld_product_image'] == "" ) {
   					echo "No image";
   				}
@@ -65,7 +67,7 @@ include_once 'database.php';
   				<?php } ?>
   			</div>
   			<div class="col-xs-12 col-sm-5 col-md-4">
-  				<div class="panel panel-default">
+  				<div class="panel panel-default" style="color: black;">
   					<div class="panel-heading"><strong>Product Details</strong></div>
   					<div class="panel-body">
   						Below are specifications of the product.

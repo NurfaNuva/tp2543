@@ -32,6 +32,8 @@ include_once 'customers_crud.php';
     		font-family: Montserrat;
     		margin-bottom: 60px; /* Margin bottom by footer height */
     		padding-top: 70px;
+    		background: linear-gradient(to top left, #232526, #414345);
+    		color: white;
     	}
     </style>
 </head>
@@ -39,7 +41,6 @@ include_once 'customers_crud.php';
 	<?php include_once 'nav_bar.php'; ?>
 
 		<div class="container-fluid">
-  		<!-- form create new customer -->
   		<div class="row">
   			<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
   				<div class="page-header">
@@ -97,14 +98,14 @@ include_once 'customers_crud.php';
   				</form>
   			</div>
   		</div>
-  		<hr>
-  		<!-- table with temporary data -->
+
   		<div class="row">
   			<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
   				<div class="page-header">
   					<h2>Customer List</h2>
   				</div>
-  				<table class="table table-striped table-bordered">
+  				<div class="thumbnail" style="background-color: white; color: black;">
+  				<table class="table table-hover">
   					<tr>
   						<th>Customer ID</th>
   						<th>Name</th>
@@ -149,6 +150,7 @@ include_once 'customers_crud.php';
   					$conn = null;
   					?>
   				</table>
+  			</div>
   			</div>
   		</div>
 
