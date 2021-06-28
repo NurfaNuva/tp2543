@@ -2,50 +2,57 @@
 
 include_once 'database.php';
 
-// if (!isset($_SESSION['loggedin']))
-//   header("LOCATION: login.php");
+if (!isset($_SESSION['loggedin']))
+  header("LOCATION: login.php");
 
-function uploadPhoto($file)
-{
-  $target_dir = "products/";
-  $target_file = $target_dir . basename($file["name"]);
-  $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+function uploadPhoto($file,$id){
+  $target_dir="products/";
+  $target_file2=$target_dir . basename($file["name"]);
+  $imageFileType=strtolower(pathinfo($target_file2, PATHINFO_EXTENSION));
+  $newfilename = "{$id}.{$imageFileType}";
+  $target_file = $target_dir . $newfilename;
 
-    /*
-     * 0 = image file is a fake image
-     * 1 = file is too large.
-     * 2 = PNG & GIF files are allowed
-     * 3 = Server error
-     * 4 = No file were uploaded
-     */
+  /*
+   * 0 = image file is a fake image
+   * 1 = file is too large.
+   * 2 = PNG & GIF files are allowed
+   * 3 = Server error
+   * 4 = No file were uploaded
+   */
 
-    if ($file['error'] == 4)
-      return 4;
-
-    // Check if image file is a actual image or fake image
-    if (!getimagesize($file['tmp_name']))
-      return 0;
-
-    // Check file size
-    if ($file["size"] > 10000000)
-      return 1;
-
-    // Allow certain file formats
-    if ($imageFileType != "png" && $imageFileType != "gif")
-      return 2;
-
-    if (!move_uploaded_file($file["tmp_name"], $target_file))
-      return 3;
-
-    return array('status' => 200, 'name' => basename($file["name"]));
+  if ($file['error']==4) {
+    return 4;
   }
+
+  // Check if image file is a actual image or fake image
+  if (!getimagesize($file['tmp_name'])) {
+    return 0;
+  }
+
+  //check file size
+  if ($file["size"]>10000000) {
+    return 1;
+  }
+
+  //Allow certain format file
+  if ($imageFileType != "png" && $imageFileType !="gif") {
+    return 2;
+  }
+
+  if (!move_uploaded_file($file["tmp_name"], $target_file)) {
+    return 3;
+  }
+
+  return array('status' => 200, 'name' => $newfilename,'ext' => $imageFileType);
+
+}
 
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 //Create
   if (isset($_POST['create'])) {
-    $flag = uploadPhoto($_FILES['fileToUpload']);
+    $flag = uploadPhoto($_FILES['fileToUpload'], $_POST['pid']);
 
     if (isset($flag['status'])) {
       try {
@@ -95,8 +102,8 @@ function uploadPhoto($file)
         $_SESSION['error'] = "An unknown error has been occurred.";
     }
 
-    // header("LOCATION: {$_SERVER['REQUEST_URI']}");
-    // exit();
+    header("LOCATION: {$_SERVER['REQUEST_URI']}");
+    exit();
   }
 
 //Update
@@ -105,8 +112,19 @@ function uploadPhoto($file)
     try {
 
       // Image Upload
-      $flag = uploadPhoto($_FILES['fileToUpload']);
+      $flag = uploadPhoto($_FILES['fileToUpload'], $_POST['pid']);
       if (isset($flag['status']) || $flag==4) {
+
+        // $stmt = $conn->prepare("SELECT fld_product_image FROM tbl_products_a173823_pt2 WHERE fld_product_num = :pid LIMIT 1");
+        // $stmt->bindParam(':pid', $id, PDO::PARAM_STR);
+        // $id = $_GET['id'];
+
+        // $stmt->execute();
+        // $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // $path = 'products/' . $result['fld_product_image'];
+        // if (file_exists($path))
+        //   unlink($path);
 
          $sql = "UPDATE tbl_products_a173823_pt2 SET 
          fld_product_name = :name, fld_product_price = :price, fld_product_brand = :brand,
@@ -209,7 +227,7 @@ function uploadPhoto($file)
       $stmt->execute();
 
       $editrow = $stmt->fetch(PDO::FETCH_ASSOC);
-      $fID = sprintf("M%03d", $editrow['fld_product_num']);
+      $fID = sprintf("M1%02d", $editrow['fld_product_num']);
 
       if (empty($editrow['fld_product_image']))
         $editrow['fld_product_image'] = $editrow['fld_product_num'] . '.png';
@@ -223,7 +241,7 @@ function uploadPhoto($file)
 
   // GET NEXT ID
   $product = $conn->query("SHOW TABLE STATUS LIKE 'tbl_products_a173823_pt2'")->fetch();
-  $NextID = sprintf("M%03d", $product['Auto_increment']);
+  $NextID = sprintf("M1%02d", $product['Auto_increment']);
 
   $conn = null;
 ?>

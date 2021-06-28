@@ -8,7 +8,6 @@ include_once 'orders_details_crud.php';
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
 	<title>BikeZone : Order Details</title>
@@ -16,51 +15,32 @@ include_once 'orders_details_crud.php';
 
 	<!-- Bootstrap -->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+    <?php include_once 'nav_bar.php'; ?>
 
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-      <style>
-      html {
-        position: relative;
-        min-height: 100%;
-      }
-      body {
-        font-family: Montserrat;
-        margin-bottom: 60px; /* Margin bottom by footer height */
-        padding-top: 70px;
-        background: linear-gradient(to top left, #232526, #414345);
-        color: white;
-      }
-    </style>
-    </head>
-    <body>
-    	<?php include_once 'nav_bar.php'; ?>
-
-    	<?php
-    	try {
-    		$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    		$stmt = $conn->prepare("SELECT * FROM tbl_orders_a173823, tbl_staffs_a173823_pt2,
-    			tbl_customers_a173823_pt2 WHERE
-    			tbl_orders_a173823.fld_staff_num = tbl_staffs_a173823_pt2.fld_staff_num AND
-    			tbl_orders_a173823.fld_customer_num = tbl_customers_a173823_pt2.fld_customer_num AND
-    			fld_order_num = :oid");
-    		$stmt->bindParam(':oid', $oid, PDO::PARAM_STR);
-    		$oid = $_GET['oid'];
-    		$stmt->execute();
-    		$readrow = $stmt->fetch(PDO::FETCH_ASSOC);
-    	}
-    	catch(PDOException $e) {
-    		echo "Error: " . $e->getMessage();
-    	}
-    	$conn = null;
-    	?>
+    <?php
+    try {
+      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $stmt = $conn->prepare("SELECT * FROM tbl_orders_a173823, tbl_staffs_a173823_pt2,
+       tbl_customers_a173823_pt2 WHERE
+       tbl_orders_a173823.fld_staff_num = tbl_staffs_a173823_pt2.fld_staff_num AND
+       tbl_orders_a173823.fld_customer_num = tbl_customers_a173823_pt2.fld_customer_num AND
+       fld_order_num = :oid");
+      $stmt->bindParam(':oid', $oid, PDO::PARAM_STR);
+      $oid = $_GET['oid'];
+      $stmt->execute();
+      $readrow = $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    catch(PDOException $e) {
+      echo "Error: " . $e->getMessage();
+    }
+    $conn = null;
+    ?>
     	
-    	<div class="container-fluid">
+    <div class="container-fluid">
     		<div class="row">
     			<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
     				<div class="panel panel-default" style="color: black;">
@@ -222,9 +202,7 @@ include_once 'orders_details_crud.php';
 
       <?php include_once 'footer.php'; ?>
 
-      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-      <!-- Include all compiled plugins (below), or include individual files as needed -->
-      <script src="js/bootstrap.min.js"></script>
-    </body>
-    </html>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

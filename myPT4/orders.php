@@ -8,7 +8,6 @@ include_once 'orders_crud.php';
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
   <title>BikeZone : Orders</title>
@@ -16,28 +15,9 @@ include_once 'orders_crud.php';
 
   <!-- Bootstrap -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <style>
-      html {
-        position: relative;
-        min-height: 100%;
-      }
-      body {
-        font-family: Montserrat;
-        margin-bottom: 60px; /* Margin bottom by footer height */
-        padding-top: 70px;
-        background: linear-gradient(to top left, #232526, #414345);
-        color: white;
-      }
-    </style>
-  </head>
-  <body>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
     <?php include_once 'nav_bar.php'; ?>
 
     <div class="container-fluid">
@@ -148,56 +128,60 @@ include_once 'orders_crud.php';
             <h2>Order List</h2>
           </div>
           <div class="thumbnail" style="background-color: white; color: black;">
-          <table class="table table-hover">
-            <tr>
-              <th>Order ID</th>
-              <th>Order Date</th>
-              <th>Staff</th>
-              <th>Customer</th>
-              <th></th>
-            </tr>
-
-            <?php
-            $per_page = 10;
-            if (isset($_GET["page"]))
-              $page = $_GET["page"];
-            else
-              $page = 1;
-            $start_from = ($page-1) * $per_page;
-
-            try {
-              $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-              $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-              $sql = "SELECT * FROM tbl_orders_a173823, tbl_staffs_a173823_pt2, tbl_customers_a173823_pt2 WHERE ";
-              $sql = $sql."tbl_orders_a173823.fld_staff_num = tbl_staffs_a173823_pt2.fld_staff_num and ";
-              $sql = $sql."tbl_orders_a173823.fld_customer_num = tbl_customers_a173823_pt2.fld_customer_num
-              LIMIT {$start_from}, ${per_page}";
-              $stmt = $conn->prepare($sql);
-              $stmt->execute();
-              $result = $stmt->fetchAll();
-            }
-            catch(PDOException $e){
-              echo "Error: " . $e->getMessage();
-            }
-            foreach($result as $orderrow) {
-              ?>
+            <table class="table table-hover">
               <tr>
-                <td><?php echo $orderrow['fld_order_num']; ?></td>
-                <td><?php echo $orderrow['fld_order_date']; ?></td>
-                <td><?php echo $orderrow['fld_staff_name'] ?></td>
-                <td><?php echo $orderrow['fld_customer_name'] ?></td>
-                <td>
-                  <a href="orders_details.php?oid=<?php echo $orderrow['fld_order_num']; ?>" class="btn btn-warning btn-xs" role="button">Details</a>
-                  <a href="orders.php?edit=<?php echo $orderrow['fld_order_num']; ?>" class="btn btn-success btn-xs" role="button">Edit</a>
-                  <a href="orders.php?delete=<?php echo $orderrow['fld_order_num']; ?>" onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs" role="button">Delete</a>
-                </td>
+                <th>Order ID</th>
+                <th>Order Date</th>
+                <th>Staff</th>
+                <th>Customer</th>
+                <th></th>
               </tr>
+
               <?php
-            }
-            $conn = null;
-            ?>
-          </table>
-        </div>
+              $per_page = 10;
+              if (isset($_GET["page"]))
+                $page = $_GET["page"];
+              else
+                $page = 1;
+              $start_from = ($page-1) * $per_page;
+
+              try {
+                $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $sql = "SELECT * FROM tbl_orders_a173823, tbl_staffs_a173823_pt2, tbl_customers_a173823_pt2 WHERE ";
+                $sql = $sql."tbl_orders_a173823.fld_staff_num = tbl_staffs_a173823_pt2.fld_staff_num and ";
+                $sql = $sql."tbl_orders_a173823.fld_customer_num = tbl_customers_a173823_pt2.fld_customer_num
+                LIMIT {$start_from}, ${per_page}";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+                $result = $stmt->fetchAll();
+              }
+              catch(PDOException $e){
+                echo "Error: " . $e->getMessage();
+              }
+              foreach($result as $orderrow) {
+                ?>
+                <tr>
+                  <td><?php echo $orderrow['fld_order_num']; ?></td>
+                  <td><?php echo $orderrow['fld_order_date']; ?></td>
+                  <td><?php echo $orderrow['fld_staff_name'] ?></td>
+                  <td><?php echo $orderrow['fld_customer_name'] ?></td>
+                  <td>
+                    <a href="orders_details.php?oid=<?php echo $orderrow['fld_order_num']; ?>" class="btn btn-warning btn-xs" role="button">Details</a>
+                    <?php
+                    if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'admin') {
+                      ?>
+                      <a href="orders.php?edit=<?php echo $orderrow['fld_order_num']; ?>" class="btn btn-success btn-xs" role="button">Edit</a>
+                      <a href="orders.php?delete=<?php echo $orderrow['fld_order_num']; ?>" onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs" role="button">Delete</a>
+                    <?php } ?>
+                  </td>
+                </tr>
+                <?php
+              }
+              $conn = null;
+              ?>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -246,11 +230,9 @@ include_once 'orders_crud.php';
         </div>
       </div>
 
-      <?php include_once 'footer.php'; ?>
+    <?php include_once 'footer.php'; ?>
 
-      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-      <!-- Include all compiled plugins (below), or include individual files as needed -->
-      <script src="js/bootstrap.min.js"></script>
-    </body>
-    </html>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -8,7 +8,6 @@ include_once 'staffs_crud.php';
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
 	<title>BikeZone : Staffs</title>
@@ -16,116 +15,102 @@ include_once 'staffs_crud.php';
 
 	<!-- Bootstrap -->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
-
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-  	<style>
-    	html {
-    		position: relative;
-    		min-height: 100%;
-    	}
-    	body {
-    		font-family: Montserrat;
-    		margin-bottom: 60px; /* Margin bottom by footer height */
-    		padding-top: 70px;
-    		background: linear-gradient(to top left, #232526, #414345);
-    		color: white;
-    	}
-    </style>
-</style>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
 	<?php include_once 'nav_bar.php'; ?>
 
+	<?php
+	if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'admin') {
+		?>
+
 		<div class="container-fluid">
-  		<div class="row">
-  			<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-  				<div class="page-header">
-  					<?php
-  					if (isset($editrow) && count($editrow) > 0) {
-  						echo "<h2>Editing #".$fID."</h2>";
-  					} else {
-  						echo "<h2>Create New Staff</h2>";
-  					}
-  					?>
-  				</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+					<div class="page-header">
+						<?php
+						if (isset($editrow) && count($editrow) > 0) {
+							echo "<h2>Editing #".$fID."</h2>";
+						} else {
+							echo "<h2>Create New Staff</h2>";
+						}
+						?>
+					</div>
 
-  				<form action="staffs.php" method="post" class="form-horizontal">
-  					<?php
-  					if (isset($_GET['edit'])) {
-  						"<input type='hidden' name='sid' value='".$editrow['fld_staff_num']."' />";
-  					}
-  					?>
+					<form action="staffs.php" method="post" class="form-horizontal">
+						<?php
+						if (isset($_GET['edit'])) {
+							"<input type='hidden' name='sid' value='".$editrow['fld_staff_num']."' />";
+						}
+						?>
 
-  					<!-- Staff ID -->
-  					<div class="form-group">
-  						<label for="staffid" class="col-sm-3">ID</label>
-  						<div class="col-sm-9">
-  							<input name="sid" type="text" class="form-control" id="staffid" placeholder="Staff ID" value="<?php if(isset($_GET['edit'])) echo $fID; else echo $NextID; ?>" readonly>
-  						</div>
-  					</div>
+						<!-- Staff ID -->
+						<div class="form-group">
+							<label for="staffid" class="col-sm-3">ID</label>
+							<div class="col-sm-9">
+								<input name="sid" type="text" class="form-control" id="staffid" placeholder="Staff ID" value="<?php if(isset($_GET['edit'])) echo $fID; else echo $NextID; ?>" readonly>
+							</div>
+						</div>
 
-  					<!-- Name -->
-  					<div class="form-group">
-  						<label for="name" class="col-sm-3">Name</label>
-  						<div class="col-sm-9">
-  							<input name="name" type="text" class="form-control" id="name" placeholder="Name" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_name']; ?>" required>
-  						</div>
-  					</div>
+						<!-- Name -->
+						<div class="form-group">
+							<label for="name" class="col-sm-3">Name</label>
+							<div class="col-sm-9">
+								<input name="name" type="text" class="form-control" id="name" placeholder="Name" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_name']; ?>" required>
+							</div>
+						</div>
 
-  					<!-- Phone Number -->
-  					<div class="form-group">
-  						<label for="staffphone" class="col-sm-3">Phone Number</label>
-  						<div class="col-sm-9">
-  							<input name="phone" type="text" class="form-control" id="staffphone" placeholder="0##-#######" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_phone']; ?>" pattern="^01[0-9]{1}-([0-9]{8}|[0-9]{7})" required>
-  						</div>
-  					</div>
+						<!-- Phone Number -->
+						<div class="form-group">
+							<label for="staffphone" class="col-sm-3">Phone Number</label>
+							<div class="col-sm-9">
+								<input name="phone" type="text" class="form-control" id="staffphone" placeholder="0##-#######" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_staff_phone']; ?>" pattern="^01[0-9]{1}-([0-9]{8}|[0-9]{7})" required>
+							</div>
+						</div>
 
-  					<div class="form-group">
-  						<label for="inputEmail" class="col-sm-3">Email</label>
-  						<div class="col-sm-9">
-  							<input name="email" type="text" class="form-control" id="inputEmail" placeholder="Email"
-  							value="<?php if (isset($_GET['edit'])) echo $editrow['fld_staff_email']; ?>" required>
-  						</div>
-  					</div>
+						<div class="form-group">
+							<label for="inputEmail" class="col-sm-3">Email</label>
+							<div class="col-sm-9">
+								<input name="email" type="email" class="form-control" id="inputEmail" placeholder="Email"
+								value="<?php if (isset($_GET['edit'])) echo $editrow['fld_staff_email']; ?>" required>
+							</div>
+						</div>
 
-  					<div class="form-group">
-  						<label for="inputEmail" class="col-sm-3">Password</label>
-  						<div class="col-sm-9">
-  							<input name="password" type="text" class="form-control" id="inputEmail" placeholder="Password"
-  							value="<?php if (isset($_GET['edit'])) echo $editrow['fld_staff_password']; ?>" required>
-  						</div>
-  					</div>
+						<div class="form-group">
+							<label for="inputEmail" class="col-sm-3">Password</label>
+							<div class="col-sm-9">
+								<input name="password" type="text" class="form-control" id="inputEmail" placeholder="Password"
+								value="<?php if (isset($_GET['edit'])) echo $editrow['fld_staff_password']; ?>" required>
+							</div>
+						</div>
 
-  					<div class="form-group">
-  						<label for="role" class="col-sm-3">Role</label>
-  						<div class="col-sm-9">
-  							<select class="form-control" name="role">
-  								<option value="normal" <?php echo (isset($_GET['edit']) && $editrow['fld_staff_role'] == 'normal' ? 'selected' : ''); ?>>Normal Staff</option>
-  								<option value="admin" <?php echo (isset($_GET['edit']) && $editrow['fld_staff_role'] == 'admin' ? 'selected' : ''); ?>>Administrator</option>
-  							</select>
-  						</div>
-  					</div>
+						<div class="form-group">
+							<label for="role" class="col-sm-3">Role</label>
+							<div class="col-sm-9">
+								<select class="form-control" name="role">
+									<option value="normal" <?php echo (isset($_GET['edit']) && $editrow['fld_staff_role'] == 'normal' ? 'selected' : ''); ?>>Normal Staff</option>
+									<option value="admin" <?php echo (isset($_GET['edit']) && $editrow['fld_staff_role'] == 'admin' ? 'selected' : ''); ?>>Administrator</option>
+								</select>
+							</div>
+						</div>
 
-  					<div class="form-group">
-  						<div class="col-sm-offset-3 col-sm-9">
-  							<?php if (isset($_GET['edit'])) { ?>
-  								<input type="hidden" name="oldsid" value="<?php echo $editrow['fld_staff_num']; ?>">
-  								<button class="btn btn-default" type="submit" name="update"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Update</button>
-  							<?php } else { ?>
-  								<button class="btn btn-default" type="submit" name="create"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create</button>
-  							<?php } ?>
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-9">
+								<?php if (isset($_GET['edit'])) { ?>
+									<input type="hidden" name="oldsid" value="<?php echo $editrow['fld_staff_num']; ?>">
+									<button class="btn btn-default" type="submit" name="update"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Update</button>
+								<?php } else { ?>
+									<button class="btn btn-default" type="submit" name="create"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create</button>
+								<?php } ?>
 
-  							<button class="btn btn-default" type="reset"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span> Clear</button>
-  						</div>
-  					</div>
-  				</form>
-  			</div>
-  		</div>
+								<button class="btn btn-default" type="reset"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span> Clear</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+  		<?php } ?>
 
   		<div class="row">
   			<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
@@ -133,56 +118,68 @@ include_once 'staffs_crud.php';
   					<h2>Staff List</h2>
   				</div>
   				<div class="thumbnail" style="background-color: white; color: black;">
-  				<table class="table table-hover">
-  					<tr>
-  						<th>Staff ID</th>
-  						<th>Name</th>
-  						<th>Phone Number</th>
-  						<th>Email</th>
-  						<th>Password</th>
-  						<th>Role</th>
-  						<th></th>
-  					</tr>
-
-  					<?php
-     				// Read
-  					$per_page = 10;
-  					if (isset($_GET["page"]))
-  						$page = $_GET["page"];
-  					else
-  						$page = 1;
-  					$start_from = ($page-1) * $per_page;
-
-  					try {
-  						$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  						$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  						$stmt = $conn->prepare("select * from tbl_staffs_a173823_pt2 LIMIT $start_from, $per_page");
-  						$stmt->execute();
-  						$result = $stmt->fetchAll();
-  					}
-  					catch(PDOException $e){
-  						echo "Error: " . $e->getMessage();
-  					}
-  					foreach($result as $readrow) {
-  						?>
+  					<table class="table table-hover">
   						<tr>
-  							<td><?php echo $readrow['fld_staff_num']; ?></td>
-  							<td><?php echo $readrow['fld_staff_name']; ?></td>
-  							<td><?php echo $readrow['fld_staff_phone']; ?></td>
-  							<td><?php echo $readrow['fld_staff_email']; ?></td>
-  							<td><?php echo $readrow['fld_staff_password']; ?></td>
-  							<td><?php echo $readrow['fld_staff_role']; ?></td>
-  							<td>
-  								<a href="staffs.php?edit=<?php echo $readrow['fld_staff_num']; ?>" class="btn btn-success btn-xs" role="button"> Edit </a>
-  								<a href="staffs.php?delete=<?php echo $readrow['fld_staff_num']; ?>" onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs" role="button">Delete</a>
-  							</td>
+  							<th>Staff ID</th>
+  							<th>Name</th>
+  							<th>Phone Number</th>
+  							<?php
+  							if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'admin') {
+  								?>
+  								<th>Email</th>
+  								<th>Password</th>
+  								<th>Role</th>
+  							<?php } ?>
+  							<th></th>
   						</tr>
+
   						<?php
-  					}
-  					$conn = null;
-  					?>
-  				</table>
-  			</div>
+     				// Read
+  						$per_page = 10;
+  						if (isset($_GET["page"]))
+  							$page = $_GET["page"];
+  						else
+  							$page = 1;
+  						$start_from = ($page-1) * $per_page;
+
+  						try {
+  							$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  							$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  							$stmt = $conn->prepare("select * from tbl_staffs_a173823_pt2 LIMIT $start_from, $per_page");
+  							$stmt->execute();
+  							$result = $stmt->fetchAll();
+  						}
+  						catch(PDOException $e){
+  							echo "Error: " . $e->getMessage();
+  						}
+  						foreach($result as $readrow) {
+  							?>
+  							<tr>
+  								<td><?php echo $readrow['fld_staff_num']; ?></td>
+  								<td><?php echo $readrow['fld_staff_name']; ?></td>
+  								<td><?php echo $readrow['fld_staff_phone']; ?></td>
+  								<?php
+  								if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'admin') {
+  									?>
+  									<td><?php echo $readrow['fld_staff_email']; ?></td>
+  									<td><?php echo $readrow['fld_staff_password']; ?></td>
+  									<td><?php echo $readrow['fld_staff_role']; ?></td>
+  								<?php } ?>
+  								<td>
+  									<?php
+  									if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'admin') {
+  										?>
+  										<a href="staffs.php?edit=<?php echo $readrow['fld_staff_num']; ?>" class="btn btn-success btn-xs" role="button"> Edit </a>
+  										<a href="staffs.php?delete=<?php echo $readrow['fld_staff_num']; ?>" onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs" role="button">Delete</a>
+  									<?php } ?>
+  								</td>
+  							</tr>
+  							<?php
+  						}
+  						$conn = null;
+  						?>
+  					</table>
+  				</div>
   			</div>
   		</div>
 
@@ -229,9 +226,7 @@ include_once 'staffs_crud.php';
 
   		<?php include_once 'footer.php'; ?>
 
-  		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  		<!-- Include all compiled plugins (below), or include individual files as needed -->
   		<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

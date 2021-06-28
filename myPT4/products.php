@@ -8,7 +8,6 @@ include_once 'products_crud.php';
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
   <title>BikeZone : Products</title>
@@ -16,37 +15,19 @@ include_once 'products_crud.php';
 
   <!-- Bootstrap -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-      <style>
-      html {
-        position: relative;
-        min-height: 100%;
-      }
-      body {
-        font-family: Montserrat;
-        margin-bottom: 60px; /* Margin bottom by footer height */
-        padding-top: 70px;
-        background: linear-gradient(to top left, #232526, #414345);
-        color: white;
-      }
-      input[type="file"] {
-        display: none;
-      }
-    </style>
-  </head>
-  <body>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
     <?php include_once 'nav_bar.php'; ?>
+
+    <?php
+    if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'admin') {
+      ?>
 
     <div class="container-fluid">
       <div class="container">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-lg-12 col-md-12 mx-auto">
           <?php if (isset($_SESSION['error'])) {
             echo "<div class='alert alert-warning' role='alert'>{$_SESSION['error']}</div>";
             unset($_SESSION['error']);
@@ -62,10 +43,13 @@ include_once 'products_crud.php';
             }
             ?>
           </div>
+          
           <form action="<?php echo($_SERVER['REQUEST_URI']); ?>" method="post" class="form-horizontal" enctype="multipart/form-data">
             <?php
             if (isset($_GET['edit']))
               echo "<input type='hidden' name='pid' value='".$editrow['fld_product_num']."' />";
+            else
+              echo "<input type='hidden' name='pid' value='{$product['Auto_increment']}' />";
             ?>
 
             <div class="col-md-4" style="height: 100%">
@@ -76,7 +60,7 @@ include_once 'products_crud.php';
                   <p>
                     <label class="btn btn-primary">
                       <input type="file" accept="image/*" name="fileToUpload" id="inputImage" onchange="loadFile(event);" />
-                      <i class="fa fa-cloud-upload"></i> Upload
+                      <i class="fa fa-cloud-upload glyphicon glyphicon-picture"></i> Upload
                     </label>
                   </p>
                 </div>
@@ -170,6 +154,8 @@ include_once 'products_crud.php';
         </div>
       </div>
     </div>
+
+    <?php } ?>
     
       <div class="row">
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
@@ -215,8 +201,12 @@ include_once 'products_crud.php';
                 <td><?php echo $readrow['fld_product_brand']; ?></td>
                 <td>
                   <a href="products_details.php?pid=<?php echo $readrow['fld_product_num']; ?>" class="btn btn-warning btn-xs" role="button">Details</a>
-                  <a href="products.php?edit=<?php echo $readrow['fld_product_num']; echo (isset($_GET['page']) ? '&page='.$_GET['page'] : ''); ?>" class="btn btn-success btn-xs" role="button"> Edit </a>
-                  <a href="products.php?delete=<?php echo $readrow['fld_product_num']; ?>" onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs" role="button">Delete</a>
+                  <?php
+                  if (isset($_SESSION['user']) && $_SESSION['user']['fld_staff_role'] == 'admin') {
+                    ?>
+                      <a href="products.php?edit=<?php echo $readrow['fld_product_num']; echo (isset($_GET['page']) ? '&page='.$_GET['page'] : ''); ?>" class="btn btn-success btn-xs" role="button"> Edit </a>
+                      <a href="products.php?delete=<?php echo $readrow['fld_product_num']; ?>" onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs" role="button">Delete</a>
+                  <?php } ?>
                 </td>
               </tr>
 
@@ -273,9 +263,7 @@ include_once 'products_crud.php';
 
       <?php include_once 'footer.php'; ?>
 
-      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-      <!-- Include all compiled plugins (below), or include individual files as needed -->
       <script src="js/bootstrap.min.js"></script>
 
       <script type="application/javascript">
@@ -290,5 +278,5 @@ include_once 'products_crud.php';
         };
       </script>
 
-    </body>
-    </html>
+</body>
+</html>

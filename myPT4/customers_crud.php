@@ -2,8 +2,8 @@
 
 include_once 'database.php';
 
-// if (!isset($_SESSION['loggedin']))
-//     header("LOCATION: login.php");
+if (!isset($_SESSION['loggedin']))
+    header("LOCATION: login.php");
 
 $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -16,11 +16,9 @@ if (isset($_POST['create'])) {
     $stmt = $conn->prepare("INSERT INTO tbl_customers_a173823_pt2(fld_customer_name, fld_customer_phone) 
       VALUES(:name, :phone)");
 
-    // $stmt->bindParam(':cid', $cid, PDO::PARAM_STR);
     $stmt->bindParam(':name', $name, PDO::PARAM_STR);
     $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
 
-    // $cid = $_POST['cid'];
     $name = strtoupper($_POST['name']);
     $phone = $_POST['phone'];
 
@@ -54,7 +52,7 @@ if (isset($_POST['update'])) {
 
     $stmt->execute();
 
-    header("Location: customers.php");
+    // header("Location: customers.php");
   }
 
   catch(PDOException $e)
