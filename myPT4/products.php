@@ -61,6 +61,7 @@ include_once 'products_crud.php';
                     <label class="btn btn-primary">
                       <input type="file" accept="image/*" name="fileToUpload" id="inputImage" onchange="loadFile(event);" />
                       <i class="fa fa-cloud-upload glyphicon glyphicon-picture"></i> Upload
+                      <input type="hidden" name="filename" value="<?php echo $editrow['fld_product_image']; ?>">
                     </label>
                   </p>
                 </div>

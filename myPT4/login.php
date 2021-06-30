@@ -71,7 +71,7 @@ if (isset($_POST['userid'], $_POST['password'])) {
 		</form>
 		<div class="signup slide-up">
 			<div class="center text-center">
-				<h4 class="form-title" id="login">Use this Account</h4>
+				<h4 class="form-title" id="login">Click Here</h4>
 				<div class="form-holder">
 					<h4>Admin</h4>
 					<hr>

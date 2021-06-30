@@ -113,6 +113,10 @@ function uploadPhoto($file,$id){
 
       // Image Upload
       $flag = uploadPhoto($_FILES['fileToUpload'], $_POST['pid']);
+
+      if(pathinfo(basename($_POST['filename']), PATHINFO_EXTENSION)!=$flag['ext'])
+      unlink("products/{$_POST['filename']}");
+    
       if (isset($flag['status']) || $flag==4) {
 
         // $stmt = $conn->prepare("SELECT fld_product_image FROM tbl_products_a173823_pt2 WHERE fld_product_num = :pid LIMIT 1");
