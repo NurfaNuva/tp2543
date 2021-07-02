@@ -114,21 +114,7 @@ function uploadPhoto($file,$id){
       // Image Upload
       $flag = uploadPhoto($_FILES['fileToUpload'], $_POST['pid']);
 
-      if(pathinfo(basename($_POST['filename']), PATHINFO_EXTENSION)!=$flag['ext'])
-      unlink("products/{$_POST['filename']}");
-    
       if (isset($flag['status']) || $flag==4) {
-
-        // $stmt = $conn->prepare("SELECT fld_product_image FROM tbl_products_a173823_pt2 WHERE fld_product_num = :pid LIMIT 1");
-        // $stmt->bindParam(':pid', $id, PDO::PARAM_STR);
-        // $id = $_GET['id'];
-
-        // $stmt->execute();
-        // $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        // $path = 'products/' . $result['fld_product_image'];
-        // if (file_exists($path))
-        //   unlink($path);
 
          $sql = "UPDATE tbl_products_a173823_pt2 SET 
          fld_product_name = :name, fld_product_price = :price, fld_product_brand = :brand,
@@ -159,6 +145,8 @@ function uploadPhoto($file,$id){
 
         if (isset($flag['status'])) {
           $stmt->bindParam(':image', $flag['name']);
+          if(pathinfo(basename($_POST['filename']), PATHINFO_EXTENSION)!=$flag['ext'])
+            unlink("products/{$_POST['filename']}");
         }
 
         $stmt->execute();
