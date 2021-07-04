@@ -1,5 +1,7 @@
 <?php
 include_once 'database.php';
+if (!isset($_SESSION['loggedin']))
+    header("LOCATION: login.php");
 ?>
 <?php
 try {
