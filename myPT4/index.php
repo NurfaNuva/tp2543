@@ -78,7 +78,7 @@ if (!isset($_SESSION['loggedin']))
       	</div>
       </div> -->
 
-      <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
+      <div class="col-xs-12 col-sm-10 col-md-10 col-md-offset-1">
       	<div class="container text-center content">
       		<h2 style="font-weight: bold; margin-top: 50px;">Product Samples</h2><br>
       		<div class="row">
