@@ -26,7 +26,7 @@
             echo "Staff";
           } ?>
         </a></li>
-        <li><a style="color:white;">|</a></li>
+        <!-- <li><a style="color:white;">|</a></li> -->
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
           aria-expanded="false" style="color:white;"><?php echo $_SESSION['user']['fld_staff_name']; ?> <span
