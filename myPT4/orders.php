@@ -49,6 +49,7 @@ include_once 'orders_crud.php';
               <label for="staff" class="col-sm-3">Staff</label>
               <div class="col-sm-9">
                 <select name="sid" class="form-control" id="staff" required>
+                  <option disabled selected value="">Select Staff</option>
                   <?php
                   try {
                    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -80,6 +81,7 @@ include_once 'orders_crud.php';
       <label for="customer" class="col-sm-3">Customer</label>
       <div class="col-sm-9">
         <select name="cid" class="form-control" id="customer" required>
+          <option disabled selected value="">Select Customer</option>
           <?php
           try {
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

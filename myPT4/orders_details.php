@@ -75,12 +75,12 @@ include_once 'orders_details_crud.php';
     				<div class="page-header">
     					<h2>Add a Product</h2>
     				</div>
-    				<form action="orders_details.php" method="post" class="form-horizontal" name="frmorder" id="forder">
+    				<form action="orders_details.php" method="post" class="form-horizontal" name="frmorder" id="forder" onsubmit="return validateForm()">
     					<div class="form-group">
     						<label for="prd" class="col-sm-3">Product</label>
     						<div class="col-sm-9">
     							<select name="pid" class="form-control" id="prd">
-    								<option disabled="">Please select</option>
+    								<option disabled selected value="">Please select</option>
     								<?php
     								try {
     									$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -106,7 +106,7 @@ include_once 'orders_details_crud.php';
     					<div class="form-group">
     						<label for="qty" class="col-sm-3">Quantity</label>
     						<div class="col-sm-9">
-    							<input name="quantity" type="number" class="form-control" id="qty" min="1" placeholder="Quantity">
+    							<input name="quantity" type="number" class="form-control" id="qty" min="1" placeholder="Quantity" required>
     						</div>
     					</div>
     					<div class="form-group">
